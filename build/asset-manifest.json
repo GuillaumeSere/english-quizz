@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/english-quizz/static/css/main.309ed80a.css",
+    "main.js": "/english-quizz/static/js/main.ba1a7655.js",
+    "static/media/background.png": "/english-quizz/static/media/background.e5fc7acad3cbe9c4bfbc.png",
+    "static/media/bg.png": "/english-quizz/static/media/bg.4c6a09e3f673fcc8cd3c.png",
+    "index.html": "/english-quizz/index.html",
+    "main.309ed80a.css.map": "/english-quizz/static/css/main.309ed80a.css.map",
+    "main.ba1a7655.js.map": "/english-quizz/static/js/main.ba1a7655.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.309ed80a.css",
+    "static/js/main.ba1a7655.js"
+  ]
+}
