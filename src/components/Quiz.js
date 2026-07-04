@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuizContext } from "../context/QuizContext";
 import { useNavigate, useParams } from "react-router-dom";
 import FocusImage from "../assets/quiz-focus.png";
@@ -17,7 +17,7 @@ function Quiz() {
   const [isErrorMessage, setIsErrorMessage] = useState(false);
   const [isResult, setIsResult] = useState(false);
 
-  const currentQuestions = questions[level] || [];
+  const currentQuestions = useMemo(() => questions[level] || [], [questions, level]);
   const selectedStatus = selectedIndex === null ? "No answer selected" : "Answer selected";
 
   const selectAnswer = (index) => {
@@ -30,7 +30,22 @@ function Quiz() {
     setSelectedIndex(index);
   };
 
-  const nextQuestion = (index) => {
+  const addAnswer = useCallback(
+    (index) => {
+      const selectedAnswer =
+        index !== null
+          ? currentQuestions[currentQuestion].answers[index]
+          : {
+              answer: "Time is up",
+              trueAnswer: false,
+            };
+
+      setSelectedAnswers((answers) => [...answers, selectedAnswer]);
+    },
+    [currentQuestion, currentQuestions]
+  );
+
+  const nextQuestion = useCallback((index) => {
     if (currentQuestion >= currentQuestions.length - 1) {
       addAnswer(index);
       setCurrentQuestion(0);
@@ -44,19 +59,7 @@ function Quiz() {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedIndex(null);
     }
-  };
-
-  const addAnswer = (index) => {
-    const selectedAnswer =
-      index !== null
-        ? currentQuestions[currentQuestion].answers[index]
-        : {
-            answer: "Time is up",
-            trueAnswer: false,
-          };
-    const newAnswers = [...selectedAnswers, selectedAnswer];
-    setSelectedAnswers(newAnswers);
-  };
+  }, [addAnswer, currentQuestion, currentQuestions.length, setCurrentQuestion]);
 
   useEffect(() => {
     if (isResult) return;
@@ -71,7 +74,7 @@ function Quiz() {
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [time, isResult, currentQuestion, selectedAnswers]);
+  }, [time, isResult, nextQuestion]);
 
   useEffect(() => {
     setIsErrorMessage(time <= 5 && time >= 0);
