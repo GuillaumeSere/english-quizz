@@ -1,5 +1,6 @@
 # English-Quizz
 
 
-![20230523170855](https://github.com/GuillaumeSere/english-quizz/assets/75996200/b86ba8d4-5360-47f5-8f3b-66389d94d7b2)
+<img width="1901" height="916" alt="20260705100257" src="https://github.com/user-attachments/assets/ca8f4b34-a57a-4bbc-b20e-23c4a3dd921c" />
+
 
